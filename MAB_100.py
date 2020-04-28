@@ -161,9 +161,9 @@ data = np.loadtxt('dataset.txt')
 arms = data[:,0]
 rewards = data[:,1]
 contexts = data[:,2:]
-testarms = data[:,0]
-testrewards = data[:,1]
-testcontexts = data[:,2:]
+testarms = data[9000:,0]
+testrewards = data[9000:,1]
+testcontexts = data[9000:,2:]
 
 mab = LinUCB(10, 10, 1)
 results_LinUCB = offlineEvaluate(mab, arms, rewards, contexts, 800)
