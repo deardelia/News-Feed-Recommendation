@@ -212,7 +212,7 @@ def offlineTest(mab, arms, rewards, contexts, nrounds=None):
     out : 1D float array
         rewards for the matching events
     """
-    count = 0
+    # count = 0
     recordId = 0
     rewardList = []
 
@@ -230,11 +230,11 @@ def offlineTest(mab, arms, rewards, contexts, nrounds=None):
         # store the rewards in a list to evaluate the result
         else:
             rewardList.append(rewards[recordId])
-            count += 1
+            # count += 1
 
 
         recordId += 1
-    print(count)
+    # print(count)
     return rewardList
 
 results_test = offlineTest(mab, testarms, testrewards, testcontexts, 50)
