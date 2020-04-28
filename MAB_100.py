@@ -158,9 +158,9 @@ def offlineEvaluate(mab, arms, rewards, contexts, nrounds=None):
 # Load the data file
 import numpy
 data = np.loadtxt('dataset.txt')
-arms = data[:,0]
-rewards = data[:,1]
-contexts = data[:,2:]
+arms = data[:9000,0]
+rewards = data[:9000,1]
+contexts = data[:9000,2:]
 testarms = data[9000:,0]
 testrewards = data[9000:,1]
 testcontexts = data[9000:,2:]
@@ -212,7 +212,7 @@ def offlineTest(mab, arms, rewards, contexts, nrounds=None):
     out : 1D float array
         rewards for the matching events
     """
-
+    count = 0
     recordId = 0
     rewardList = []
 
@@ -220,8 +220,9 @@ def offlineTest(mab, arms, rewards, contexts, nrounds=None):
         # get next event
         armPredicted = mab.play(t, contexts[recordId])
         # find same arm as the one that was selected by logging policy
-        if armPredicted != arms[recordId]:
-            rewardList.append(0)
+        while armPredicted != arms[recordId]:
+            recordId += 1
+            armPredicted = mab.play(t, contexts[recordId])
         # recordId += 1
         # armPredicted = mab.play(t, contexts[recordId])
         # retain the event
@@ -229,13 +230,16 @@ def offlineTest(mab, arms, rewards, contexts, nrounds=None):
         # store the rewards in a list to evaluate the result
         else:
             rewardList.append(rewards[recordId])
-        recordId += 1
+            count += 1
 
+
+        recordId += 1
+    print(count)
     return rewardList
 
-results_test = offlineTest(mab, testarms, testrewards, testcontexts, 1000)
+results_test = offlineTest(mab, testarms, testrewards, testcontexts, 50)
 print('LinUCB average reward', np.mean(results_LinUCB))
-figtest = [np.mean(results_test[0:t]) for t in range(1, 1000)]
+figtest = [np.mean(results_test[0:t]) for t in range(1, 50)]
 # use matplotlib to print the figure
 # plt.plot(figEpsGreedy, 'r', linewidth=1.2, label='EpsGreedy')
 # plt.plot(figUCB, 'g', linewidth=1.2, label='UCB')
