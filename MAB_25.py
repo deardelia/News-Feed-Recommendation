@@ -167,7 +167,7 @@ testrewards = data[9000:,1]
 testcontexts = data[9000:,2:27]
 
 mab = LinUCB(5, 5, 1)
-results_LinUCB = offlineEvaluate(mab, arms, rewards, contexts, 100)
+results_LinUCB = offlineEvaluate(mab, arms, rewards, contexts, 800)
 print('LinUCB average reward', np.mean(results_LinUCB))
 
 
