@@ -239,6 +239,7 @@ def offlineTest(mab, arms, rewards, contexts, nrounds=None):
 
 results_test = offlineTest(mab, testarms, testrewards, testcontexts, 50)
 print('LinUCB average reward', np.mean(results_LinUCB))
+np.savetxt("result_100.txt",results_test)
 figtest = [np.mean(results_test[0:t]) for t in range(1, 50)]
 # use matplotlib to print the figure
 # plt.plot(figEpsGreedy, 'r', linewidth=1.2, label='EpsGreedy')

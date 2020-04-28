@@ -237,6 +237,7 @@ def offlineTest(mab, arms, rewards, contexts, nrounds=None):
     return rewardList
 
 results_test = offlineTest(mab, testarms, testrewards, testcontexts, 50)
+np.savetxt("result_25.txt",results_test)
 print('LinUCB average reward', np.mean(results_LinUCB))
 figtest = [np.mean(results_test[0:t]) for t in range(1, 50)]
 # use matplotlib to print the figure
